@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+-->
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <parent>
+        <groupId>com.latdata.collect</groupId>
+        <artifactId>latdata-sinks</artifactId>
+        <version>0.1.0-SNAPSHOT</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.latdata.collect</groupId>
+    <artifactId>latdata-kafka-sink</artifactId>
+    <packaging>jar</packaging>
+    <name>LatData Kafka Sink</name>
+    <version>0.1.0-SNAPSHOT</version>
+
+    <dependencies>
+        
+	<dependency>
+	    <groupId>org.scala-lang</groupId>
+	    <artifactId>scala-library</artifactId>
+	    <version>2.12.1</version>
+	    <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+	</dependency>
+
+	<dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.9.13</version>
+	    <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+	<dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-core-asl</artifactId>
+            <version>1.9.13</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flume</groupId>
+            <artifactId>flume-ng-sdk</artifactId>
+            <version>${flume.version}</version>
+	    <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flume</groupId>
+            <artifactId>flume-ng-configuration</artifactId>
+            <version>${flume.version}</version>
+	    <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        
+	<dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>20.0</version>
+	    <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        
+	<dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.21</version>
+	    <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        
+	<dependency>
+            <groupId>org.apache.flume</groupId>
+            <artifactId>flume-ng-core</artifactId>
+            <version>${flume.version}</version>
+	    <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+ 
+	<!--<dependency>
+	    <groupId>org.apache.kafka</groupId>
+	    <artifactId>kafka_2.10</artifactId>
+	    <version>${kafka.version}</version>
+	    <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+  	</dependency>-->
+  	
+	<dependency>
+  	    <groupId>org.apache.kafka</groupId>
+  	    <artifactId>kafka-clients</artifactId>
+  	    <version>${kafka.version}</version>
+	    <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+  	</dependency>
+
+	<dependency>
+	    <groupId>org.apache.avro</groupId>
+ 	    <artifactId>avro</artifactId>
+	    <version>${avro.version}</version>
+	    <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <sourceDirectory>src</sourceDirectory>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.4.3</version>
+                <configuration>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <minimizeJar>true</minimizeJar>
+			    <artifactSet>
+                                <excludes>
+                                    <exclude>org.apache.kafka</exclude>
+				    <exclude>org.apache.flume</exclude>
+				    <exclude>com.google*</exclude>
+				    <exclude>org.codehaus.jackson*</exclude>
+				    <exclude>org.slf4j</exclude>
+				    <exclude>org.scala*</exclude>
+				    <exclude>net.sf.jopt-simple</exclude>
+				    <exclude>com.yammer.metrics</exclude>
+                                    <exclude>log4j</exclude>
+                                    <exclude>com.101tec</exclude>
+                                    <exclude>org.apache.zookeeper</exclude>
+                                    <exclude>jline</exclude>
+                                    <exclude>io.netty</exclude>
+                                    <exclude>org.apache.avro</exclude>
+                                </excludes>
+                            </artifactSet>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+	</plugins>
+    </build>
+
+</project>
