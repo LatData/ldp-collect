@@ -11,13 +11,20 @@ ldp code and software components can be modified and distributed under the terms
 
 
 ### Requirements ###
-* Java 7 (JDK 1.7, tested on Java 8). Set environment variable `JAVA_HOME` to point to the root directory of JDK.
-* Maven 3.x , http://maven.apache.org/ .
-- Check that mvn command can be run from your command line.
-* gcc 4.5.x or higher.
-* Boost C++ Library (http://www.boost.org/), version newer than Stonehenge should be enough.
-* wget
-* git
-
+* OpenJ DK 7 or 8 ,also tested on Oracle JDK 7 & 8. (```apt install openjdk-7-jdk```)
+* Environment variable JAVA_HOME points to JDK (```echo $JAVA_HOME```)
+* Maven 3.x , http://maven.apache.org/ . (```apt install maven ```)
+* gcc 4.5.x or higher, binutils & make (```apt install build-essential```)
+* Boost C++ Library (http://www.boost.org/) (```apt install libboost-deb```)
+* re2:libre2-java:jar in maven local repos (https://github.com/LatData/re2-java)
+* wget (```apt install wget```)
+* git (```apt install git```)
 
 ### INSTALL ###
+```shell
+~$ git clone https://github.com/LatData/ldp-collect.git
+Cloning into 'ldp-collect'...
+Checking connectivity... done.
+~$ cd ldp-collect/
+~/ldp-collect$
+ ```
